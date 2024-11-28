@@ -1,0 +1,33 @@
+/* .container {
+	margin: -1.75rem 22rem 0;
+} */
+
+.container {
+	max-width: 46rem;
+	width: 100%;
+
+	margin: -1.75rem auto auto auto;
+}
+
+.noTasks {
+	display: grid;
+	justify-items: center;
+	color: var(--gray-300);
+	padding: 4rem 2rem;
+}
+
+.noTasks svg {
+	margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		padding: 1rem;
+	}
+}
+
+@media screen and (max-width: 380px) {
+	.container {
+		padding: 0.2rem;
+	}
+}
