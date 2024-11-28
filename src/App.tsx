@@ -6,7 +6,7 @@ import "./global.css";
 import { AddTask } from "./components/AddTask";
 import { ItemTask } from "./components/ItemTask";
 import { ClipboardText } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface ListTask {
 	id: number;
@@ -38,7 +38,9 @@ const listTasks: ListTask[] = [
 ];
 
 function App() {
-	const [tasks, setTasks] = useState([...listTasks]);
+	const [tasks, setTasks] = useState(
+		JSON.parse(localStorage.getItem("list-tasks") || JSON.stringify(listTasks))
+	);
 
 	function addTask(task: string) {
 		const newTask: ListTask = {
@@ -51,7 +53,7 @@ function App() {
 	}
 
 	function checkTask(item: ListTask) {
-		const newTasks = tasks.map((task) => {
+		const newTasks = tasks.map((task: ListTask) => {
 			if (task === item) {
 				task.isCompleted = item.isCompleted;
 			}
@@ -62,10 +64,14 @@ function App() {
 	}
 
 	function deleteTask(item: ListTask) {
-		const newTasks = tasks.filter((task) => task !== item);
+		const newTasks = tasks.filter((task: ListTask) => task !== item);
 
 		setTasks(newTasks);
 	}
+
+	useEffect(() => {
+		localStorage.setItem("list-tasks", JSON.stringify(tasks));
+	}, [tasks]);
 
 	return (
 		<>
@@ -82,7 +88,7 @@ function App() {
 						</div>
 					) : (
 						<div>
-							{tasks.map((task) => {
+							{tasks.map((task: ListTask) => {
 								return (
 									<ItemTask
 										key={task.id}
